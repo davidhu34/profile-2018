@@ -24,13 +24,7 @@ class Main extends Component {
 		const clipTop = 0.18 * scaleH
 		const clipRight = width - 0.25 * scaleH
         const contentWidth = width - 0.4 * scaleH
-        console.log({
-            width: window.innerWidth,
-            height: window.innerHeight,
-            clipR,
-            clipTop,
-            clipRight
-        })
+        
         this.setState({
             width: window.innerWidth,
             height: window.innerHeight,
@@ -50,7 +44,6 @@ class Main extends Component {
     }
 
     render() {
-        console.log(this.state)
         return <div>
             <Responsive maxWidth={Responsive.onlyComputer.minWidth-1}>
                 <Mobile  {...this.state} />

@@ -104,7 +104,6 @@ class PC extends Component {
         const { parallaxIdx } = this.state
 
         const parallax = this.parallax
-        console.log(parallax, (parallax ||{}).current)
         return <div style={{
             position: 'fixed',
             top: 0,
@@ -228,7 +227,7 @@ class PC extends Component {
                                 <Divider hidden />
 
                                 <p>{'Front-end development consists the majority of my work.'}</p>
-                                <p>{'IoT and cloud Applications are my field of interests.'}</p>
+                                <p>{'IoT and cloud Applications are my fields of interests.'}</p>
                                 <p>{'I\'m enthusiastic about programming and user experience.'}</p>
 
                                 <p>{'I admire creativiy.'}</p>
@@ -286,7 +285,7 @@ class PC extends Component {
                             <Container textAlign={'center'} style={{ fontSize:  height/600+'rem' }}>
                                 <p>{'My experience through 2 cloud team internships...'}</p>
 
-                                <p>{'Cloud Service POCs | IoT POCs | Event Lecturer | Official Blog E ditor'}</p>
+                                <p>{'Cloud Service POCs | IoT POCs | Event Lecturer | Official Blog Editor'}</p>
 
                                 <Divider hidden />
                                 <Image spaced inline width={clipTop} src={'images/ms.png'} />
@@ -366,11 +365,11 @@ class PC extends Component {
                         }}>
                             <Container text textAlign={'center'} style={{ fontSize:  height/600+'rem' }}>
 
-                                <p>{'I\'m currenly working as Business Transform Consultant and full-stack application developer.'}</p>
-                                <p>{'Our projects faces clients from major banking industries.'}</p>
+                                <p>{'I\'m currenly working as Business Transform Consultant and Full-stack Application Developer.'}</p>
+                                <p>{'Our projects face clients from major banking industries.'}</p>
 
                                 <Divider hidden /><Divider hidden />
-                                <Icon name={'dollar'} /><Icon name={'building outline'} />
+                                <Icon name={'laptop'} />
                                 <Divider hidden /><Divider hidden />
 
                                 <p>{'Nice to meet you!'}</p>

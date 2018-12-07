@@ -10,9 +10,7 @@ class Canvas extends Component {
 
     componentDidMount() {
         const { context, width, height } = this.props
-        console.log(width, height)
         if ( context == null ) {
-            console.log(this.ref)
             const _canvas = this.ref
             _canvas.width = width
             _canvas.height = height
