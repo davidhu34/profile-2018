@@ -15,10 +15,6 @@ import Modal from '../Modal'
 import ImageContainer from '../ImageContainer'
 import LinkItem from '../LinkItem'
 
-const Home = () => <div>Home Page</div>
-const About = () => <div>About content</div>
-const Topics = () => <div>Topics content</div>
-
 const scale = 0.5, fromPercent = 25, toPercent = 100,imageProportion = 1334/1060//3783/3007
 
 class PC extends Component {
@@ -31,7 +27,7 @@ class PC extends Component {
     sideContent = [{
         key: ' name',
         icon: '',
-        content: 'MING WEI HU',
+        content: 'Ming Wei Hu',
         link: ''
     },{
         key: ' Contact',
@@ -183,17 +179,19 @@ class PC extends Component {
                             fontSize: size2,
                         }}
                         {...this.sideContent[0]} />
+                    <Divider hidden />
                     <LinkItem {...this.sideContent[1]}
                         onClick={ (e) => launchModal('CONTACT') }
                         style={{
                             color: withinContent? 'rgb(100,100,100)': '#ffffff',
-                            fontSize: size2,
+                            fontSize: size3,
                          }} />
+                     <Divider hidden />
                     <LinkItem {...this.sideContent[2]}
                         // onClick={ (e) => launchModal('RESUME') }
                         style={{
                             color: withinContent? 'rgb(100,100,100)': '#ffffff',
-                            fontSize: size2,
+                            fontSize: size3,
                         }} />
                 </Item.Group>
             </div>
@@ -214,7 +212,7 @@ class PC extends Component {
                         fontSize: size1,
                         paddingTop: clipTop*1.8,
                     }}>
-                        {'Ming Wei Hu '}
+                        {'Ming Wei Hu'}
                     </div>
                     <div style={{
                         color: '#ffffff',

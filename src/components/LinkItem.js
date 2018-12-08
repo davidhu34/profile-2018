@@ -35,10 +35,8 @@ class LinkItem extends Component {
                                 ...styles,
                                 ...style,
                             }}>
-                            <h1>
                                 {icon? <Icon name={icon} />: null}
                                 {content}
-                            </h1>
                         </a>
                     )}
                 />
