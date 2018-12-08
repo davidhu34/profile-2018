@@ -25,7 +25,9 @@ class PC extends Component {
 
     parallax = null
     parallaxRef = null
+    contentSlideRef = null
     state = {}
+
     sideContent = [{
         key: ' name',
         icon: '',
@@ -42,10 +44,6 @@ class PC extends Component {
         content: 'Resume',
         link: 'https://drive.google.com/file/d/1YifEeovKCpf57J0hSkaM8whZBebkLwh3/view?usp=sharing'
     }]
-    constructor(props) {
-        super(props)
-        // this.parallax = React.createRef()
-    }
 
     updateParallaxState(e) {
         const thisIndex = Math.round(this.parallax.current/this.parallax.space);
@@ -62,10 +60,24 @@ class PC extends Component {
         if (this.parallaxRef) this.parallaxRef.addEventListener("scroll",this.updateParallaxState.bind(this))
     }
     componentDidMount() {
-        this.updateParallaxRef();
+        this.contentSlideRef = findDOMNode(this.contentSlide)
+        if (this.contentSlideRef) this.contentSlideRef.addEventListener("scroll",this.handleScroll.bind(this))
     }
     componentWillUnmount() {
         if (this.parallaxRef) this.parallaxRef.removeEventListener("scroll",this.updateParallaxState.bind(this))
+        if (this.contentSlideRef) this.contentSlideRef.removeEventListener("scroll",this.handleScroll.bind(this))
+    }
+
+    handleScroll(e) {
+        if (e.target.scrollTop > this.props.clipTop + this.props.clipR) {
+            if (!this.state.withinContent)this.setState({
+                withinContent: true
+            })
+        } else if (this.state.withinContent) {
+            this.setState({
+                withinContent: false
+            })
+        }
     }
 
 
@@ -88,7 +100,7 @@ class PC extends Component {
     })
 
     parallaxStyle = {
-        backgroundColor:'rgba(255,255,255,0.8)',
+        // backgroundColor:'rgba(255,255,255,0.8)',
         // maskImage: '-webkit-linear-gradient(to bottom, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
         // WebkitMaskImage: '-webkit-linear-gradient(top, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
     }
@@ -101,9 +113,21 @@ class PC extends Component {
             width, height, clipR, clipTop, clipRight
         } = this.props
 
-        const { parallaxIdx } = this.state
+        const { parallaxIdx, withinContent } = this.state
 
-        const parallax = this.parallax
+
+        const size1 = width/250+'rem'
+        const size2 = width/500+'rem'
+        const size3 = width/800+'rem'
+
+        const contentPadding = {
+            paddingLeft: size1,
+            paddingRight: size1,
+            height: height*1.3,
+            fontSize: size3,
+            paddingTop: height*0.3,
+        }
+
         return <div style={{
             position: 'fixed',
             top: 0,
@@ -118,7 +142,7 @@ class PC extends Component {
                 backgroundStyles={{
                     backgroundPosition: 'top right',
                     fliter: 'blur(20)',
-                    zIndex: -1
+                    zIndex: -2
                 }}
                 blur={10} />
             <ImageContainer layer cover
@@ -148,243 +172,174 @@ class PC extends Component {
                 position: 'fixed',
                 top: 0,
                 right: (width - clipRight - clipR) || 0,
-                width: clipR*2,
-                height: '100%',
                 paddingTop: clipR+clipTop,
-                color: parallaxIdx > 0? 'rgb(100,100,100)': '#ffffff',
-                textAlign: 'center',
-                zIndex:3
+                color: withinContent? 'rgb(100,100,100)': '#ffffff',
+                textAlign: 'right',
             }}>
                 <Item.Group relaxed>
                     <Divider hidden /><Divider hidden />
-                    <LinkItem style={{ color: parallaxIdx > 0? 'rgb(100,100,100)': 'transparent'}}
+                    <LinkItem style={{
+                            color: withinContent? 'rgb(100,100,100)': 'transparent',
+                            fontSize: size2,
+                        }}
                         {...this.sideContent[0]} />
                     <LinkItem {...this.sideContent[1]}
                         onClick={ (e) => launchModal('CONTACT') }
-                        style={{ color: parallaxIdx > 0? 'rgb(100,100,100)': '#ffffff' }} />
+                        style={{
+                            color: withinContent? 'rgb(100,100,100)': '#ffffff',
+                            fontSize: size2,
+                         }} />
                     <LinkItem {...this.sideContent[2]}
                         // onClick={ (e) => launchModal('RESUME') }
-                        style={{ color: parallaxIdx > 0? 'rgb(100,100,100)': '#ffffff' }} />
+                        style={{
+                            color: withinContent? 'rgb(100,100,100)': '#ffffff',
+                            fontSize: size2,
+                        }} />
                 </Item.Group>
             </div>
 
-
-
-            <div style={{
-                zIndex: 1,
-                filter: this.props.modal.open? 'blur(20px)': ''
+            <div ref={ ref => { this.contentSlide = ref }} style={{
+                textAlign: 'center',
+                overflowY: 'scroll',
+                height: height,
+                zIndex: 0,
+                filter: this.props.modal.open? 'blur(20px)': '',
             }}>
-                <Parallax ref={ ref => { this.parallax = ref } } pages={7}>
-                <Grid onScroll={(e) => this.updateParallaxState(e)} >
-                <Grid.Row>
-                <Grid.Column style={{
-                    textAlign: 'center',
+                <div style={{
+                    width: clipRight - clipR,
+                    height: height-50
                 }}>
-                    <Parallax.Layer offset={0} speed={0.5} style={{
-                        width: clipRight - clipR,
+                    <div style={{
+                        color: '#ffffff',
+                        fontSize: size1,
+                        paddingTop: clipTop*1.8,
                     }}>
-                        <div style={{
-                            fontSize: width/250+'rem',
-                            textAlign: 'center',
-                            color: '#ffffff',
-                            paddingTop: clipTop*1.8,
-                        }}>
-                            {'Ming Wei Hu '}
-                        </div>
-                        <div style={{
-                            fontSize: width/500+'rem',
-                            textAlign: 'center',
-                            color: '#ffffff',
-                            paddingTop: '8rem',
-                        }}>
-                            {'Software Engineer'}
-                        </div>
-                    </Parallax.Layer>
-
-                    <Parallax.Layer
-                        offset={1}
-                        speed={-0.1}
-                        onClick={(e) => this.scrollToParallax(2)}
-                        style={this.parallaxStyle}>
-
-                        <Grid style={{
-                            paddingTop: clipTop,
-                            width: clipRight - clipR,
-                        }}>
-                            <Container textAlign={'center'} style={{ fontSize:  height/600+'rem' }}>
-                                <p>{'Hi, I\'m Ming-Wei Hu (胡明衛) from Taiwan,'}</p>
-
-                                <p>{'an IBMer since 2017.'}</p>
-
-                                <Divider hidden />
-                                <Divider hidden />
-                                <Icon name={'desktop'} />
-                                <Icon size={'tiny'}/>
-                                <br/>
-                                <Icon name={'keyboard outline'} />
-                                <Icon size={'tiny'} flipped={'vertically'} name={'mobile'} />
-                                <Divider hidden />
-                                <Divider hidden />
-
-                                <p>{'Front-end development consists the majority of my work.'}</p>
-                                <p>{'IoT and cloud Applications are my fields of interests.'}</p>
-                                <p>{'I\'m enthusiastic about programming and user experience.'}</p>
-
-                                <p>{'I admire creativiy.'}</p>
-                            </Container>
-                        </Grid>
-                    </Parallax.Layer>
-
-                    <Parallax.Layer
-                        offset={2}
-                        speed={0.5}
-                        onClick={(e) => this.scrollToParallax(3)}
-                        style={this.parallaxStyle}>
-                        <Grid style={{
-                            paddingTop: clipTop,
-                            width: clipRight - clipR,
-                        }}>
-                            <Container style={{ fontSize: height/600+'rem' }}>
-
-                                <Timeline orientation={'right'} lineStyle={{ backgroundColor: 'grey' }}>
-                                    <TimelineEvent title="2015" {...this.timelineEventProps()}>
-                                        <Icon name={'microsoft'} /> Internship at Microsoft M&O Cloud & Enterprise
-                                    </TimelineEvent>
-                                    <TimelineEvent title="2016-2017" {...this.timelineEventProps()}>
-                                        <Icon name={'graduation'} /> Graduted from NTUEE
-                                        <br />
-                                        <br />
-                                        <Image spaced inline src={'images/watson.png'}
-                                            width={30}
-                                            height={30}/>
-                                        Internship at IBM Cloud Team
-                                        <br />
-                                        <br />
-                                        <Icon name={'rocket'} />
-                                        NASA Space App Challenge - Magic Conch
-                                    </TimelineEvent>
-                                    <TimelineEvent title="2018" {...this.timelineEventProps()}>
-
-                                      IBM Employee
-                                    </TimelineEvent>
-                                </Timeline>
-
-                            </Container>
-                        </Grid>
-                    </Parallax.Layer>
-
-                    <Parallax.Layer
-                        offset={3}
-                        speed={0.1}
-                        onClick={(e) => this.scrollToParallax(4)}
-                        style={this.parallaxStyle}>
-                        <Grid style={{
-                            paddingTop: clipTop,
-                            width: clipRight - clipR,
-                        }}>
-                            <Container textAlign={'center'} style={{ fontSize:  height/600+'rem' }}>
-                                <p>{'My experience through 2 cloud team internships...'}</p>
-
-                                <p>{'Cloud Service POCs | IoT POCs | Event Lecturer | Official Blog Editor'}</p>
-
-                                <Divider hidden />
-                                <Image spaced inline width={clipTop} src={'images/ms.png'} />
-                                <Image spaced inline width={clipTop} src={'images/ibmday.png'} />
-                                <Divider hidden />
-                            </Container>
-                        </Grid>
-                    </Parallax.Layer>
-
-                    <Parallax.Layer
-                        offset={4}
-                        speed={0.1}
-                        onClick={(e) => this.scrollToParallax(5)}
-                        style={this.parallaxStyle}>
-                        <Grid style={{
-                            paddingTop: clipTop,
-                            width: clipRight - clipR,
-                        }}>
-                            <Container text textAlign={'center'} style={{ fontSize:  height/600+'rem' }}>
-
-                                <p>{'My IBM mentor and I build chat bots of all shape and sizes. (APPs, cardboards, humanoids, VR...) '}</p>
-
-                                <Divider hidden />
-                                <Image spaced inline src={'images/reception.png'} />
-                                <Divider hidden />
-
-                                <p>{'One of our bot even hosted the office reception for a couple of month!'}</p>
-                            </Container>
-                        </Grid>
-                    </Parallax.Layer>
+                        {'Ming Wei Hu '}
+                    </div>
+                    <div style={{
+                        color: '#ffffff',
+                        fontSize: size2,
+                        paddingTop: size1,
+                    }}>
+                        {'Software Engineer'}
+                    </div>
+                </div>
 
 
+                <div style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}>
+                <Grid textAlign={'center'} style={{
+                    fontSize:  height/600+'rem',
+                    width: clipRight - clipR,
+                }}>
 
-                    <Parallax.Layer
-                        offset={5}
-                        speed={0.1}
-                        onClick={(e) => this.scrollToParallax(0)}
-                        style={this.parallaxStyle}>
-                        <Grid style={{
-                            paddingTop: clipTop,
-                            width: clipRight - clipR,
-                        }}>
-                            <Container text textAlign={'center'} style={{ fontSize:  height/600+'rem' }}>
+                    <Container style={{ ...contentPadding }}>
+                        <p>{'Hi, I\'m Ming-Wei Hu (胡明衛) from Taiwan,'}</p>
 
-                                <p>{'During 2017 NASA SpaceApp Challenge, my friends and I had a blast in the world\'s biggest hackathon!'}</p>
+                        <p>{'an IBMer since 2017.'}</p>
 
-                                <Divider hidden />
-                                <Image spaced inline
-                                    onClick={ (e) => { window.open('https://2017.spaceappschallenge.org/challenges/earth-and-us/lets-go-beach/teams/magic-conch') } }
-                                    src={'images/magicconch.png'}
-                                    label={{
-                                        as: 'a', color: 'blue',
-                                        content: 'check out the offical project page!',
-                                        icon: 'linkify',
-                                        ribbon: true
-                                    }}/>
-                                <Divider hidden />
+                        <Divider hidden />
+                        <Divider hidden />
+                        <Icon name={'desktop'} />
+                        <Icon size={'tiny'}/>
+                        <br/>
+                        <Icon name={'keyboard outline'} />
+                        <Icon size={'tiny'} flipped={'vertically'} name={'mobile'} />
+                        <Divider hidden />
+                        <Divider hidden />
 
-                                <p><Icon name={'trophy'} />{'We were 2nd place in Taiwan;'}</p>
-                                <p><Icon name={'trophy'} />{'Top 5 global finalist (Best Use of Data).'}</p>
+                        <p>{'Front-end development consists the majority of my work.'}</p>
+                        <p>{'IoT and cloud Applications are my fields of interests.'}</p>
+                        <p>{'I\'m enthusiastic about programming and user experience.'}</p>
 
-                            </Container>
-                        </Grid>
-                    </Parallax.Layer>
+                        <p>{'I admire creativiy.'}</p>
+                    </Container>
 
+                    <Container style={{ ...contentPadding }}>
 
+                        <Timeline orientation={'right'} lineStyle={{ backgroundColor: 'grey' }}>
+                            <TimelineEvent title="2015" {...this.timelineEventProps()}>
+                                <Icon name={'microsoft'} /> Internship at Microsoft M&O Cloud & Enterprise
+                            </TimelineEvent>
+                            <TimelineEvent title="2016-2017" {...this.timelineEventProps()}>
+                                <Icon name={'graduation'} /> Graduted from NTUEE
+                                <br />
+                                <br />
+                                <Image spaced inline src={'images/watson.png'}
+                                    width={30}
+                                    height={30}/>
+                                Internship at IBM Cloud Team
+                                <br />
+                                <br />
+                                <Icon name={'rocket'} />
+                                NASA Space App Challenge - Magic Conch
+                            </TimelineEvent>
+                            <TimelineEvent title="2018" {...this.timelineEventProps()}>
 
+                              IBM Employee
+                            </TimelineEvent>
+                        </Timeline>
 
-                    <Parallax.Layer
-                        offset={6}
-                        speed={0.1}
-                        onClick={(e) => this.scrollToParallax(0)}
-                        style={this.parallaxStyle}>
-                        <Grid style={{
-                            paddingTop: clipTop,
-                            width: clipRight - clipR,
-                        }}>
-                            <Container text textAlign={'center'} style={{ fontSize:  height/600+'rem' }}>
+                    </Container>
+                    <Container style={{ ...contentPadding }}>
+                        <p>{'My experience through 2 cloud team internships...'}</p>
 
-                                <p>{'I\'m currenly working as Business Transform Consultant and Full-stack Application Developer.'}</p>
-                                <p>{'Our projects face clients from major banking industries.'}</p>
+                        <p>{'Cloud Service POCs | IoT POCs | Event Lecturer | Official Blog Editor'}</p>
 
-                                <Divider hidden /><Divider hidden />
-                                <Icon name={'laptop'} />
-                                <Divider hidden /><Divider hidden />
+                        <Divider hidden />
+                        <Image spaced inline width={clipTop} src={'images/ms.png'} />
+                        <Image spaced inline width={clipTop} src={'images/ibmday.png'} />
+                        <Divider hidden />
+                    </Container>
 
-                                <p>{'Nice to meet you!'}</p>
-                                <p>{'Feel free to contact me in any form.'}</p>
+                    <Container style={{ ...contentPadding }}>
+                        <p>{'My IBM mentor and I build chat bots of all shape and sizes. (APPs, cardboards, humanoids, VR...) '}</p>
 
-                            </Container>
-                        </Grid>
-                    </Parallax.Layer>
+                        <Divider hidden />
+                        <Image spaced inline src={'images/reception.png'} />
+                        <Divider hidden />
 
+                        <p>{'One of our bot even hosted the office reception for a couple of month!'}</p>
+                    </Container>
 
+                    <Container style={{ ...contentPadding }}>
+                        <p>{'During 2017 NASA SpaceApp Challenge, my friends and I had a blast in the world\'s biggest hackathon!'}</p>
 
-                </Grid.Column>
-                </Grid.Row>
+                        <Divider hidden />
+                        <Image spaced inline
+                            onClick={ (e) => { window.open('https://2017.spaceappschallenge.org/challenges/earth-and-us/lets-go-beach/teams/magic-conch') } }
+                            src={'images/magicconch.png'}
+                            label={{
+                                as: 'a', color: 'blue',
+                                content: 'check out the offical project page!',
+                                icon: 'linkify',
+                                ribbon: true
+                            }}/>
+                        <Divider hidden />
+
+                        <p><Icon name={'trophy'} />{'We were 2nd place in Taiwan;'}</p>
+                        <p><Icon name={'trophy'} />{'Top 5 global finalist (Best Use of Data).'}</p>
+
+                    </Container>
+
+                    <Container style={{
+                        ...contentPadding,
+                        height: height,
+                    }}>
+                        <p>{'I\'m currenly working as Business Transform Consultant and Full-stack Application Developer.'}</p>
+                        <p>{'Our projects face clients from major banking industries.'}</p>
+
+                        <Divider hidden /><Divider hidden />
+                        <Icon name={'laptop'} />
+                        <Divider hidden /><Divider hidden />
+
+                        <p>{'Nice to meet you!'}</p>
+                        <p>{'Feel free to contact me in any form.'}</p>
+
+                    </Container>
+
                 </Grid>
-                </Parallax>
+                </div>
+
             </div>
 
 
