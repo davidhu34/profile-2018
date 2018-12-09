@@ -38,7 +38,7 @@ class Mobile extends Component {
         key: 'Resume',
         icon: '',
         content: 'Resume',
-        link: 'https://drive.google.com/file/d/1YifEeovKCpf57J0hSkaM8whZBebkLwh3/view?usp=sharing'
+        link: 'https://drive.google.com/file/d/1Gog335_I4mFYj6erSJqo_7jcZa1RSPmC/view'
     }]
 
     componentDidMount() {
@@ -98,6 +98,9 @@ class Mobile extends Component {
             paddingTop: height*0.3,
         }
 
+        const clipPath = withinContent
+            ? 'circle('+height*0.07+'px at '+(width-height*0.13)+'px '+height*0.11+'px)'
+            :'circle('+clipR+'px at '+clipRight+'px '+clipTop+'px)'
         return <div style={{
             position: 'fixed',
             top: 0,
@@ -136,12 +139,9 @@ class Mobile extends Component {
                     backgroundStyles={{
                         backgroundPosition: 'top right',
                         zIndex: 3,
-
             			height: withinContent? height*0.3: height,
-                        clipPath: withinContent
-                            ? 'circle('+height*0.07+'px at '+(width-height*0.13)+'px '+height*0.11+'px)'
-                            :'circle('+clipR+'px at '+clipRight+'px '+clipTop+'px)',
-
+                        clipPath: clipPath,
+                        WebkitClipPath: clipPath,
                     }} />
             }
 

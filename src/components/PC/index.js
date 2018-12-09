@@ -38,29 +38,14 @@ class PC extends Component {
         key: 'Resume',
         icon: '',
         content: 'Resume',
-        link: 'https://drive.google.com/file/d/1YifEeovKCpf57J0hSkaM8whZBebkLwh3/view?usp=sharing'
+        link: 'https://drive.google.com/file/d/1Gog335_I4mFYj6erSJqo_7jcZa1RSPmC/view'
     }]
 
-    updateParallaxState(e) {
-        const thisIndex = Math.round(this.parallax.current/this.parallax.space);
-        if (thisIndex != this.state.parallaxIdx) {
-            this.setState({
-                parallaxIdx: thisIndex,
-                parallaxCurrent: this.parallax.current,
-            })
-        }
-    }
-
-    updateParallaxRef() {
-        this.parallaxRef = findDOMNode(this.parallax)
-        if (this.parallaxRef) this.parallaxRef.addEventListener("scroll",this.updateParallaxState.bind(this))
-    }
     componentDidMount() {
         this.contentSlideRef = findDOMNode(this.contentSlide)
         if (this.contentSlideRef) this.contentSlideRef.addEventListener("scroll",this.handleScroll.bind(this))
     }
     componentWillUnmount() {
-        if (this.parallaxRef) this.parallaxRef.removeEventListener("scroll",this.updateParallaxState.bind(this))
         if (this.contentSlideRef) this.contentSlideRef.removeEventListener("scroll",this.handleScroll.bind(this))
     }
 
@@ -76,12 +61,6 @@ class PC extends Component {
         }
     }
 
-
-    scrollToParallax(i) {
-        if (this.parallax.scrollTo) this.parallax.scrollTo(i)
-    }
-
-
     timelineEventProps = () => ({
         bubbleStyle: {
             color: 'grey',
@@ -94,12 +73,6 @@ class PC extends Component {
             fontSize: this.props.height/600 + 'rem',
         }
     })
-
-    parallaxStyle = {
-        // backgroundColor:'rgba(255,255,255,0.8)',
-        // maskImage: '-webkit-linear-gradient(to bottom, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
-        // WebkitMaskImage: '-webkit-linear-gradient(top, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
-    }
 
     render() {
         const {
@@ -123,6 +96,8 @@ class PC extends Component {
             fontSize: size3,
             paddingTop: height*0.3,
         }
+
+        const clipPath = 'circle('+clipR+'px at '+clipRight+'px '+clipTop+'px)'
 
         return <div style={{
             position: 'fixed',
@@ -160,7 +135,8 @@ class PC extends Component {
                 backgroundStyles={{
                     backgroundPosition: 'top right',
                     zIndex: 3,
-                    clipPath: 'circle('+clipR+'px at '+clipRight+'px '+clipTop+'px)',
+                    clipPath: clipPath,
+                    WebkitClipPath: clipPath,
                 }} />
 
 

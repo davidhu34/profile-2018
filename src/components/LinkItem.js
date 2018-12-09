@@ -19,7 +19,7 @@ class LinkItem extends Component {
         const hover = this.state.hover
 
         return <Item key={key}
-            onClick={ (e) => onClick() }
+            onClick={ (e) => {if (onClick) onClick()} }
             onMouseEnter={(e) => this.updateHover(true)}
             onMouseLeave={(e) => this.updateHover(false)}>
             <Item.Content verticalAlign='middle'>
