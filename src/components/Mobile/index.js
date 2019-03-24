@@ -108,28 +108,18 @@ class Mobile extends Component {
             width: '100%',
             height: '100%',
         }}>
-            <ImageContainer layer cover
-                src={BACKGROUND_URL2}
-                fixedBlur={20}
-                placeholderSrc={BACKGROUND_PLACEHOLDER_URL2}
-                backgroundStyles={{
-                    backgroundPosition: 'top right',
-                    fliter: 'blur(20)',
-                    zIndex: -2
-                }}
-                blur={10} />
-            <ImageContainer layer cover
-                blur={10}
-                fixedBlur={10}
-                src={BACKGROUND_URL2}
-                placeholderSrc={BACKGROUND_URL2}
-                backgroundStyles={{
-                    backgroundPosition: 'top right',
-        			height: height*0.3,
-                    zIndex: withinContent? 2: -3,
-        			maskImage: '-webkit-linear-gradient(to bottom, rgba(0,0,0,1) '+fromPercent+'%, rgba(0,0,0,0) '+toPercent+'%)',
-        			WebkitMaskImage: '-webkit-linear-gradient(top, rgba(0,0,0,1) '+fromPercent+'%, rgba(0,0,0,0) '+toPercent+'%)',
-                }} />
+
+            <div style={{
+        		position: 'absolute',
+        		pointerEvents: 'none',
+        		padding: 0,
+                backgroundColor: 'rgba(30,50,100,0.8)',
+                height: height*0.3,
+                width: '100%',
+                zIndex: withinContent? 2: -3,
+            }}>
+            </div>
+
             { modal.open
                 ? null
                 : <ImageContainer layer cover
@@ -196,14 +186,14 @@ class Mobile extends Component {
                     height: height-50
                 }}>
                     <div style={{
-                        color: '#ffffff',
+                        color: 'navy',
                         fontSize: size1,
                         paddingTop: height*0.5,
                     }}>
                         {'Ming Wei Hu '}
                     </div>
                     <div style={{
-                        color: '#ffffff',
+                        color: 'navy',
                         fontSize: size2,
                         paddingTop: size1,
                     }}>
@@ -219,13 +209,13 @@ class Mobile extends Component {
                         <LinkItem {...this.sideContent[1]}
                             onClick={ (e) => launchModal('CONTACT') }
                             style={{
-                                color: withinContent? 'rgb(100,100,100)': '#ffffff',
+                                color: withinContent? 'rgb(100,100,100)': 'navy',
                                 fontSize: size2,
                              }} />
                         <LinkItem {...this.sideContent[2]}
                             // onClick={ (e) => launchModal('RESUME') }
                             style={{
-                                color: withinContent? 'rgb(100,100,100)': '#ffffff',
+                                color: withinContent? 'rgb(100,100,100)': 'navy',
                                 fontSize: size2,
                             }} />
                     </Item.Group>
