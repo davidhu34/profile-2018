@@ -16,7 +16,7 @@ class Modal extends Component {
         width: '100%',
         height: '100%',
         backgroundColor: 'rgba(0,0,0, 0.5)',
-        opacity: '10%',
+        opacity: '90%',
         overflowY:'scroll',
         zIndex: 90
     }

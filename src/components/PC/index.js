@@ -251,6 +251,10 @@ class PC extends Component {
 
                               IBM Employee
                             </TimelineEvent>
+                            <TimelineEvent title="2019" {...this.timelineEventProps()}>
+                                <br />
+                              Shopee Employee
+                            </TimelineEvent>
                         </Timeline>
 
                     </Container>
@@ -295,12 +299,23 @@ class PC extends Component {
 
                     </Container>
 
+                    <Container style={{ ...contentPadding }}>
+                        <p>{'At IBM, I worked as Business Transform Consultant'}</p>
+                        <p>{'and Full-stack Application Developer.'}</p>
+                        <p>{'Our projects face clients from major banking industries.'}</p>
+                        <p>{'The products serve millions of users daily.'}</p>
+                        <Divider hidden />
+                        <Image spaced inline src={'images/homebank.png'} />
+                        <Divider hidden />
+                        <p>{'CTBC Home Bank was one of my deeply involved projects.'}</p>
+                    </Container>
+
                     <Container style={{
                         ...contentPadding,
                         height: height,
                     }}>
-                        <p>{'I\'m currenly working as Business Transform Consultant and Full-stack Application Developer.'}</p>
-                        <p>{'Our projects face clients from major banking industries.'}</p>
+                        <p>{'I\'m currenly a Front-end Engineer at Shopee,'}</p>
+                        <p>{'transforming supply chain operations.'}</p>
 
                         <Divider hidden /><Divider hidden />
                         <Icon name={'laptop'} />

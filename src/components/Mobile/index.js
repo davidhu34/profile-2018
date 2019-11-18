@@ -183,7 +183,7 @@ class Mobile extends Component {
                 filter: this.props.modal.open? 'blur(20px)': '',
             }}>
                 <div style={{
-                    height: height-50
+                    height: height
                 }}>
                     <div style={{
                         color: 'navy',
@@ -317,12 +317,23 @@ class Mobile extends Component {
 
                     </Container>
 
+                    <Container style={{ ...contentPadding }}>
+                        <p>{'At IBM, I worked as Business Transform Consultant'}</p>
+                        <p>{'and Full-stack Application Developer.'}</p>
+                        <p>{'Our projects face clients from major banking industries.'}</p>
+                        <p>{'The products serve millions of users daily.'}</p>
+                        <Divider hidden />
+                        <Image spaced inline src={'images/homebank.png'} />
+                        <Divider hidden />
+                        <p>{'CTBC Home Bank was one of my deeply involved projects.'}</p>
+                    </Container>
+
                     <Container style={{
                         ...contentPadding,
                         height: height,
                     }}>
-                        <p>{'I\'m currenly working as Business Transform Consultant and Full-stack Application Developer.'}</p>
-                        <p>{'Our projects face clients from major banking industries.'}</p>
+                        <p>{'I\'m currenly a Front-end Engineer at Shopee,'}</p>
+                        <p>{'transforming supply chain operations.'}</p>
 
                         <Divider hidden /><Divider hidden />
                         <Icon name={'laptop'} />
