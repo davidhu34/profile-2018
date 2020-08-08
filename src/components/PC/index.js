@@ -207,9 +207,9 @@ class PC extends Component {
                 }}>
 
                     <Container style={{ ...contentPadding }}>
-                        <p>{'Hi, I\'m Ming-Wei Hu (胡明衛) from Taiwan,'}</p>
+                        <p>{'Hi, I\'m Ming-Wei Hu (胡明衛) from Taiwan.'}</p>
 
-                        <p>{'an IBMer since 2017.'}</p>
+                        <p>{'I write code.'}</p>
 
                         <Divider hidden />
                         <Divider hidden />
@@ -248,12 +248,17 @@ class PC extends Component {
                                 NASA Space App Challenge - Magic Conch
                             </TimelineEvent>
                             <TimelineEvent title="2018" {...this.timelineEventProps()}>
-
-                              IBM Employee
+                                <Image spaced inline src={'images/ibm.png'}
+                                    width={30}
+                                    height={30}/>
+                                IBM Employee
                             </TimelineEvent>
                             <TimelineEvent title="2019" {...this.timelineEventProps()}>
                                 <br />
-                              Shopee Employee
+                                <Image spaced inline src={'images/shopee.png'}
+                                    width={30}
+                                    height={30}/>
+                                Shopee Employee
                             </TimelineEvent>
                         </Timeline>
 
@@ -302,28 +307,34 @@ class PC extends Component {
                     <Container style={{ ...contentPadding }}>
                         <p>{'At IBM, I worked as Business Transform Consultant'}</p>
                         <p>{'and Full-stack Application Developer.'}</p>
-                        <p>{'Our projects face clients from major banking industries.'}</p>
-                        <p>{'The products serve millions of users daily.'}</p>
+                        <p>{'We face clients from major banking industries.'}</p>
+                        <p>{'Our products serve millions of users daily.'}</p>
                         <Divider hidden />
                         <Image spaced inline src={'images/homebank.png'} />
                         <Divider hidden />
                         <p>{'CTBC Home Bank was one of my deeply involved projects.'}</p>
                     </Container>
 
+                    <Container style={{ ...contentPadding }}>
+                        <p>{'As a Front-end Engineer at Shopee,'}</p>
+                        <p>{'I helped transform supply chain operations'}</p>
+                        <Divider hidden />
+                        <Image spaced inline size="small" src={'images/shopee.png'} />
+                        <Divider hidden />
+                        <p>{'Our projects ranged from drop shippings systems'}</p>
+                        <p>{'to demanding food delivery platform.'}</p>
+                    </Container>
+
                     <Container style={{
                         ...contentPadding,
                         height: height,
                     }}>
-                        <p>{'I\'m currenly a Front-end Engineer at Shopee,'}</p>
-                        <p>{'transforming supply chain operations.'}</p>
-
                         <Divider hidden /><Divider hidden />
                         <Icon name={'laptop'} />
                         <Divider hidden /><Divider hidden />
 
                         <p>{'Nice to meet you!'}</p>
                         <p>{'Feel free to contact me in any form.'}</p>
-
                     </Container>
 
                 </Grid>
