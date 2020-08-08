@@ -113,7 +113,7 @@ class Mobile extends Component {
         		position: 'absolute',
         		pointerEvents: 'none',
         		padding: 0,
-                backgroundColor: 'rgba(30,50,100,0.8)',
+                backgroundColor: modal.open ? 'transparent' : 'rgba(30,50,100,0.8)',
                 height: height*0.3,
                 width: '100%',
                 zIndex: withinContent? 2: -3,

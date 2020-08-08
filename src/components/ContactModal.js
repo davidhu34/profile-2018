@@ -12,11 +12,13 @@ class ContactModal extends Component {
         key: ' mail',
         icon: 'mail',
         content: 'b01901133@gmail.com',
+        copy: 'b01901133@gmail.com',
         link: ''
     },{
         key: ' cell',
         icon: 'call',
         content: '+886937507612',
+        copy: '+886937507612',
         link: ''
     },{
         key: 'location',
@@ -27,7 +29,7 @@ class ContactModal extends Component {
         key: 'github',
         icon: 'github',
         content: 'davidhu34',
-        link: ''
+        link: 'https://github.com/davidhu34'
     }]
 
     initStyle = { color: 'rgba(255,255,255,0)' }
